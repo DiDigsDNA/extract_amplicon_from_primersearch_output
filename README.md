@@ -6,5 +6,5 @@ amplimer is present in the primersearch output, sequence is extracted using the 
 amplicon sequences to fasta file.
 Note: Fasta definition lines should follow the typical format: 
 	e.g. >KY925925 A/Santo Antonio da Patrulha/LACENRS-2621/2012 2012/08/10 7 (MP)
-As opposed to:
+Instead of:
 	e.g. >A_/_H1N1_|_A/WAKAYAMA/163/2016_|_MP|_|_970779
