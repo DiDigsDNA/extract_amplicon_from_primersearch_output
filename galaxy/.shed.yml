@@ -1,0 +1,7 @@
+name: extract_amplicon_from_primersearch_output
+owner: diane
+description: Extracts PCR amplicons from full-length nucleotide fasta sequences, using Emboss primersearch output, and outputs them to fasta.
+homepage_url: https://github.com/DiDigsDNA/extract_amplicon_from_primersearch_output/
+long_description: Extracts PCR amplicons from full-length nucleotide fasta sequences, using Emboss primersearch output. Reads in full-length fasta sequences and corresponding Emboss primersearch output for the sequences. Parses primersearch output for sequence id and description and uses primer locations to extract amplicon regions from full-length fasta sequences. If more than one amplimer is present in the primersearch output, sequence is extracted using the first amplimer. Prints extracted amplicon sequences to fasta file. 
+remote_repository_url: https://github.com/DiDigsDNA/extract_amplicon_from_primersearch_output
+type: unrestricted
