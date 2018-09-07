@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-'''Reads in full-length fasta sequences and corresponding output from the Emboss primersearch tool
-for these sequences. Parses primersearch output for sequence id, description and primer locations and
-uses these locations to extract amplicon regions from the full-length fasta sequences. If more than one
-primersearch amplimer is present in the primersearch output, extracts sequence from the original amplicon
-using only the first amplimer. Prints extracted amplicon sequences to fasta file.
-Note: Fasta definition lines should be follow typical format: 
+'''Extracts PCR amplicons from full-length nucleotide fasta sequences, using Emboss primersearch output. 
+Reads in full-length fasta sequences and corresponding Emboss primersearch output for the sequences. 
+Parses primersearch output for sequence id and description and uses primer locations to extract amplicon
+regions from full-length fasta sequences. If more than one amplimer is present in the primersearch output, 
+sequence is extracted using the first amplimer. Prints extracted amplicon sequences to fasta file.
+Note: Fasta definition lines should follow the typical format: 
 	e.g. >KY925925 A/Santo Antonio da Patrulha/LACENRS-2621/2012 2012/08/10 7 (MP)
-Not unusual formats:
+Instead of:
 	e.g. >A_/_H1N1_|_A/WAKAYAMA/163/2016_|_MP|_|_970779
 '''
 
