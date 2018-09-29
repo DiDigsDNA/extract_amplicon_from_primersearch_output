@@ -41,7 +41,6 @@ def extractIndex(hit_line_string):
     # print("Extracted position ", position)
     return position
 
-
 def extractAmpliconLength(amplimer_length_line):
     '''Extract and return amplicon length from Emboss primersearch amplimer length line.'''
     amplicon_length = ''
@@ -51,14 +50,13 @@ def extractAmpliconLength(amplimer_length_line):
         amplicon_length = int(matchArray[0])
     return amplicon_length
 
-
-def determineFailedExtractions(full_length_dict, extracted_amplicons):
+def determineFailedExtractions(full_length_dict, extracted_amplicon_list):
     unextracted_sequence_list = []
     print("--> determining failed extractions.....")
     for rec_id in full_length_dict:  # compare id of each full-length sequence
         extracted = False  # assume the sequence's amplicon region wasn't extracted
-        for amplicon in extracted_amplicons:  # look at each amplicon extracted
-            if rec_id == amplicon.id:  # if the rec in full-length list found in extracted_amplicons
+        for amplicon in extracted_amplicon_list:  # look at each amplicon extracted
+            if rec_id == amplicon.id:  # if the rec in full-length list found in extracted_amplicon_list
                 extracted = True  # we know its amplicon was extracted successfully
         if extracted == False:  # if the sequence failed amplicon extraction
             unextracted_sequence_list.append(rec_id)  # add it to list of unextracted sequences
@@ -99,17 +97,18 @@ with open(primersearch_results, 'r') as inputFile:
                 ampliconRec = SeqRecord(extracted_sequence, id=id, name=id, description=description)
                 extracted_amplicon_list.append(ampliconRec)
 
-    for rec in extracted_amplicons:  # print extracted amplicon record id's and lengths to console
+    for rec in extracted_amplicon_list:  # print extracted amplicon record id's and lengths to console
         print("Amplicon extracted for %s: %i bp" % (rec.id, len(rec.seq)))
     # check that amplicons were extracted from all original full-length sequences
     if len(full_length_dict) == len(extracted_amplicon_list):
-        print("Amplicons extracted from all (%i/%i) full-length sequences" % (len(extracted_amplicons), len(full_length_dict)))
+        print("Amplicons extracted from all (%i/%i) full-length sequences" % (len(extracted_amplicon_list), len(full_length_dict)))
     else:  # determine which sequences failed amplicon extraction and print to console
-        failed_amplicon_extraction_list = determineFailedExtractions(full_length_dict, extracted_amplicons)
-        print('''%i amplicons extracted from %i sequences (%i failed extraction)''' % (len(extracted_amplicons), len(full_length_dict), len(failed_amplicon_extraction_list)))
-        #SeqIO.write(failed_amplicon_extraction_list, failed_sequences, "fasta") #FIGURE OUT HOW SEQIO WRITES LISTS OF SEQRECORDS
+        failed_amplicon_extraction_list = determineFailedExtractions(full_length_dict, extracted_amplicon_list)
+        print('''%i amplicons extracted from %i sequences (%i failed extraction)''' % (len(extracted_amplicon_list), len(full_length_dict), len(failed_amplicon_extraction_list)))
+        SeqIO.write(failed_amplicon_extraction_list, failed_sequences, "fasta")
+        print(">>> Failed to extract amplicons from: %s" % failed_seqs_handle)
     SeqIO.write(extracted_amplicon_list, extracted_amplicons, "fasta")
-    print(">>> Extracted Amplicons: %s" % outputFastaHandle)
+    print(">>> Extracted Amplicons: %s" % ampliconOutputHandle)
 
 inputFile.close()
-extractedAmpliconsFasta.close()
+extracted_amplicons.close()
